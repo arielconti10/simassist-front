@@ -1,19 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import styles from '../styles';
-import logo from '../simassist.jpeg'
+import logo from '../simassist.jpeg';
+
+
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 class Login extends Component {
   constructor(props) {
@@ -25,34 +23,29 @@ class Login extends Component {
     };
   }
 
-  componentWillMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-
-  }
-
-  submitLogin(event) {
-    event.preventDefault();
-
-  }
-
   render() {
     const {classes} = this.props;
     return (
-      <main className={classes.main}>
+      <main className={classes.layout}>
         <CssBaseline/>
         <Paper className={classes.paper}>
-          <img src={logo} width={200} />
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email </InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus/>
+          <img width='200' alt='logo' src={logo}/>
+          <form onSubmit={event => { this.submitLogin(event);}} className={classes.form}>
+            <FormControl error={!!this.state.error} margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input
+                id="email" name="email" autoComplete="email" autoFocus  onChange={(event) => this.setState({ email: event.target.value })}/>
+              {this.state.error ? <FormHelperText id="component-error-text">{this.state.error.message}</FormHelperText> : ''}
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Senha</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password"/>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(event) => this.setState({ password: event.target.value })}
+              />
             </FormControl>
 
             <Button
@@ -62,13 +55,17 @@ class Login extends Component {
               color="primary"
               className={classes.submit}
             >
-              Sign in
+              Login
             </Button>
           </form>
         </Paper>
       </main>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return {user: state.user};
 }
 
 Login.propTypes = {
