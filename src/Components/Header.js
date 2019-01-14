@@ -23,6 +23,15 @@ class Header extends Component {
      open: false,
     };
   }
+
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -76,7 +85,7 @@ class Header extends Component {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          <List>{secondaryListItems}</List>
+          {/* <List>{secondaryListItems}</List> */}
         </Drawer>
       </div>
     )

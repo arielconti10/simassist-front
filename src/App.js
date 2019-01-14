@@ -24,22 +24,21 @@ class App extends Component {
 
     return (
       <MuiThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <Header />
-          <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <BrowserRouter>
+        <BrowserRouter>
+          <div className={classes.root}>
+            <Header />
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
               <Switch>
                 <Route path="/clients/:id" component={ClientForm} />
-                <Route path="/clients/new" component={ClientForm} />
+                <Route path="/clients/new" component={PaymentForm} />
                 <Route path="/clients" component={Clients} />
                 <Route path="/login" component={Login} />
                 <Route path="/" component={Home} />
               </Switch>
-            </BrowserRouter>
-          </main>
-
-        </div>
+            </main>
+          </div>
+        </BrowserRouter>
 
       </MuiThemeProvider>
     );
@@ -49,5 +48,6 @@ class App extends Component {
 App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(App);
